@@ -16,7 +16,6 @@ const signupUser = async (req, res) => {
   const {
     name,
     username,
-    email,
     password,
     phone_number,
     gender,
@@ -31,24 +30,23 @@ const signupUser = async (req, res) => {
     if (
       !name ||
       !username ||
-      !email ||
       !password ||
       !phone_number ||
       !gender ||
       !date_of_birth ||
       !membership_status ||
-      !address
+      !address 
     ) {
       res.status(400);
       throw new Error("Please add all required fields");
     }
 
     // Check if user exists
-    const userExists = await User.findOne({ $or: [{ email }, { username }] });
+    const userExists = await User.findOne({username });
 
     if (userExists) {
       res.status(400);
-      throw new Error("User with this email or username already exists");
+      throw new Error("User with username already exists");
     }
 
     // Hash password
@@ -59,7 +57,6 @@ const signupUser = async (req, res) => {
     const user = await User.create({
       name,
       username,
-      email,
       password: hashedPassword,
       phone_number,
       gender,
@@ -72,7 +69,7 @@ const signupUser = async (req, res) => {
 
     if (user) {
       const token = generateToken(user._id);
-      res.status(201).json({ email, username, token });
+      res.status(201).json({ username, token });
     } else {
       res.status(400);
       throw new Error("Invalid user data");
@@ -86,14 +83,14 @@ const signupUser = async (req, res) => {
 // @route   POST /api/users/login
 // @access  Public
 const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
   try {
-    // Check for user email
-    const user = await User.findOne({ email });
+    // Check for username
+    const user = await User.findOne({ username });
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = generateToken(user._id);
-      res.status(200).json({ email, username: user.username, token });
+      res.status(200).json({username: user.username, token });
     } else {
       res.status(400);
       throw new Error("Invalid credentials");
