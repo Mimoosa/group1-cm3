@@ -32,6 +32,12 @@ const handleRequirementChange = (index, value) => {
 - Dynamic Handling: Use of the map method to render input fields dynamically based on the current state of the array.
 - User Interaction: Allows users to dynamically add new fields and update existing ones, enhancing the form's flexibility and usability.
 
+### Self-Grading:
+- Functionality: 10/10 - The form dynamically handles arrays and allows for adding and updating fields as intended.
+- Code Quality: 9/10 - The code is clean and readable, with meaningful variable names and modular functions.
+- User Experience: 10/10 - The form is user-friendly and intuitive.
+
+
 ## Example 2: Handling Date Format Issues in React
 
 Initially, our implementation for setting dates in our form looked something like this:
@@ -52,6 +58,12 @@ setApplicationDeadline(data.applicationDeadline ? data.applicationDeadline.split
 ### Key Improvements:
 - Date Format Conversion: Implemented a method to convert ISO date strings to a format that is compatible with form inputs. The split('T')[0] method was used to extract the date portion of the ISO string.
 - Error Handling: Added a conditional check for applicationDeadline to ensure it only attempts to format the date if a value is present, preventing potential errors when the date is missing.
+
+### Self-Grading:
+- unctionality: 10/10 - The date format conversion works as intended, ensuring dates are displayed correctly in the form inputs.
+- Code Quality: 9/10 - The code is clean and readable, with meaningful variable names and clear logic.
+- Performance: 9/10 - The code is efficient and performs well with the current requirements.
+- User Experience: 10/10 - The form inputs display dates in a user-friendly format, enhancing the overall user experience.
 
 ## Example 3: Preventing Unauthorized Access to Edit/Delete Buttons
 
@@ -74,6 +86,12 @@ This approach did not prevent unauthorized users from accessing the edit and del
 ### Key Improvements:
 - Authentication Check: Added a conditional rendering based on the isAuthenticated flag to ensure that only authorized users can access the edit and delete buttons.
 - User Experience: Improved the user interface by showing the edit and delete buttons only to users who have the necessary permissions, reducing confusion for unauthorized users.
+
+### Self-Grading:
+- Functionality: 10/10 - The authentication check works as intended, preventing unauthorized access to the edit and delete buttons.
+- Code Quality: 9/10 - The code is clean and readable, with clear logic and meaningful variable names.
+- Security: 10/10 - The authentication check significantly enhances security by ensuring only authorized users can access sensitive actions.
+- User Experience: 10/10 - The interface is more intuitive, showing buttons only to users with the necessary permissions.
 
 ## Example 4: Ensuring Proper Navigation After Logout in React
 Initially, our implementation for handling the logout process in the Navbar component did not include navigation after the logout action.
@@ -121,6 +139,12 @@ const Navbar = ({isAuthenticated, setIsAuthenticated}) => {
 - User Experience: Improved the overall user experience by ensuring a smooth transition to the login page after logging out.
 - Security Enhancement: Prevented unauthorized access to restricted pages after logout, enhancing the security of the application.
 
+### Self-Grading:
+- Functionality: 10/10 - The navigation works as intended, redirecting users to the login page after logging out.
+- Code Quality: 9/10 - The code is clean and readable, with clear logic and meaningful variable names.
+- Performance: 9/10 - The code performs well with the current requirements, with minimal impact on performance.
+- Security: 10/10 - The navigation enhances security by ensuring users are redirected to the login page after logging out.
+- User Experience: 10/10 - The interface is more intuitive, providing a smooth transition after logging out.
 
 
 
