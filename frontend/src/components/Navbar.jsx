@@ -1,11 +1,15 @@
 import {Link} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({isAuthenticated, setIsAuthenticated}) => {
+
+  const navigate = useNavigate();
   const handleClick = (e) => {
     e.preventDefault();
     
     setIsAuthenticated(false);
     localStorage.removeItem('user');
+    navigate(`/login`);
   };
   
   return (
