@@ -2,7 +2,7 @@ import {useParams, useNavigate} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
-const JobPage = () => {
+const JobPage = ({isAuthenticated}) => {
   const navigate = useNavigate();
   const {id} = useParams();
   const [job, setJob] = useState(null);
@@ -81,11 +81,14 @@ const JobPage = () => {
           <p>Status: {job.status}</p>
           <p>Application Deadline: {job.applicationDeadline ? new Date(job.applicationDeadline).toLocaleDateString() : "N/A"}</p>
           <p>Requirements: {job.requirements.join(", ")}</p>
+          
+          {isAuthenticated&&
           <div className="align-row">
             <Link to={`/edit-job/${job._id}`} className={"btn"}>Edit</Link>
             <Link to='/' className="btn"
                   onClick={() => onDeleteClick(job._id)}>Delete</Link>
           </div>
+          }
         </>
       )}
     </div>
