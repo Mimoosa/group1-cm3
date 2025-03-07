@@ -53,7 +53,7 @@ setApplicationDeadline(data.applicationDeadline ? data.applicationDeadline.split
 - Date Format Conversion: Implemented a method to convert ISO date strings to a format that is compatible with form inputs. The split('T')[0] method was used to extract the date portion of the ISO string.
 - Error Handling: Added a conditional check for applicationDeadline to ensure it only attempts to format the date if a value is present, preventing potential errors when the date is missing.
 
-##　Example 3: Preventing Unauthorized Access to Edit/Delete Buttons
+## Example 3: Preventing Unauthorized Access to Edit/Delete Buttons
 
 Initially, our implementation for providing access to the edit and delete buttons looked something like this:
 ```jsx
