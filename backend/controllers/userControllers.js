@@ -35,18 +35,18 @@ const signupUser = async (req, res) => {
       !gender ||
       !date_of_birth ||
       !membership_status ||
-      !address 
+      !address
     ) {
       res.status(400);
       throw new Error("Please add all required fields");
     }
 
     // Check if user exists
-    const userExists = await User.findOne({username });
+    const userExists = await User.findOne({ username });
 
     if (userExists) {
       res.status(400);
-      throw new Error("User with username already exists");
+      throw new Error("User with this username already exists");
     }
 
     // Hash password
@@ -90,7 +90,7 @@ const loginUser = async (req, res) => {
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = generateToken(user._id);
-      res.status(200).json({username: user.username, token });
+      res.status(200).json({ username: user.username, token });
     } else {
       res.status(400);
       throw new Error("Invalid credentials");

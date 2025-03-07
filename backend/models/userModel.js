@@ -15,6 +15,4 @@ const userSchema = new Schema({
   profile_picture: { type: String, required: false }
 }, { timestamps: true, versionKey: false });
 
-
-
 module.exports = mongoose.model("User", userSchema);

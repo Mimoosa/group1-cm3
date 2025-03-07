@@ -7,7 +7,7 @@ export default function useSignup(url) {
   const signup = async (object) => {
     setIsLoading(true);
     setError(null);
-    const response = await fetch(url, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}${url}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(object),
