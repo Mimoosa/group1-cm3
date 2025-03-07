@@ -11,13 +11,13 @@ const Navbar = ({isAuthenticated, setIsAuthenticated}) => {
   return (
     <nav className="navbar">
       <Link to="/">
-        <h1>React Products</h1>
+        <h1>React Jobs</h1>
       </Link>
       <div className="links">
         {isAuthenticated && (
           <div>
-            <Link to="/products/add-product">Add Product</Link>
-            <span>{JSON.parse(localStorage.getItem('user')).email}</span>
+            <Link to="/jobs/add-job">Add Job</Link>
+            <span>{JSON.parse(localStorage.getItem('user')).username}</span>
               <Link to="/" onClick={handleClick} className={"btn"}>Log out</Link>
           </div>
         )}
