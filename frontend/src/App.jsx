@@ -5,7 +5,7 @@ import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Home from "./pages/HomePage";
 import AddJobPage from "./pages/AddJobPage";
-import JobPage from "./pages/JobPage";
+import JobPage from "./pages/jobPage";
 import EditJobPage from "./pages/EditJobPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Login from "./pages/LoginPage";
