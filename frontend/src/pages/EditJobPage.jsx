@@ -24,12 +24,23 @@ const EditJobPage = () => {
   const [applicationDeadline, setApplicationDeadline] = useState("");
   const [requirements, setRequirements] = useState([]);
 
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user ? user.token : null;
+
   const navigate = useNavigate();
 
   const updateJob = async (job) => {
     try {
-      const res = await axios.put(`/api/jobs/${job.id}`, job);
-      return res.status === 200;
+      const res = await fetch(`/api/jobs/${job.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(job),
+      });
+      if (!res.ok) throw new Error("Failed to update job");
+      return res.ok;
     } catch (error) {
       console.error("Error updating job:", error);
       return false;
@@ -40,6 +51,7 @@ const EditJobPage = () => {
   useEffect(() => {
     const fetchJob = async () => {
         try {
+          console.log(id)
         const res = await fetch(`/api/jobs/${id}`);
         if (!res.ok) {
             throw new Error("Network response was not ok");
@@ -59,9 +71,9 @@ const EditJobPage = () => {
         setLocation(data.location);
         setSalary(data.salary);
         setExperienceLevel(data.experienceLevel);
-        setPostedDate(data.postedDate);
+        setPostedDate(data.postedDate.split('T')[0]);
         setStatus(data.status);
-        setApplicationDeadline(data.applicationDeadline);
+        setApplicationDeadline(data.applicationDeadline ? data.applicationDeadline.split('T')[0] : "");
         setRequirements(data.requirements);
       } catch (error) {
         console.error("Failed to fetch job:", error);
@@ -118,7 +130,7 @@ const EditJobPage = () => {
   };
 
   return (
-    <div className="edit">
+    <div className="create">
       <h2>Edit Job</h2>
       {loading ? (
         <p>Loading...</p>

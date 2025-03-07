@@ -5,13 +5,13 @@ const JobListings = ({jobs}) => {
     <div className="job-list">
       {jobs.map((job) => (
         
-        <div className="job-preview" key={job.id}>
+        <div className="job-preview" key={job._id}>
           <h2>{job.title}</h2>
-          <p>Type: {job.category}</p>
+          <p>Type: {job.type}</p>
           <p>Description: {job.description}</p>
-          <p>Price: {job.price}</p>
+          <p>Location: {job.location}</p>
           <div className="align-row">
-            <Link to={`/jobs/${job.id}`} className="btn">
+            <Link to={`/jobs/${job._id}`} className="btn">
               View Job
             </Link>
           </div>
