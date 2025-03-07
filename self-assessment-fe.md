@@ -32,7 +32,7 @@ const handleRequirementChange = (index, value) => {
 - Dynamic Handling: Use of the map method to render input fields dynamically based on the current state of the array.
 - User Interaction: Allows users to dynamically add new fields and update existing ones, enhancing the form's flexibility and usability.
 
-### Example 2: Handling Date Format Issues in React
+## Example 2: Handling Date Format Issues in React
 
 Initially, our implementation for setting dates in our form looked something like this:
 ```jsx
@@ -53,7 +53,28 @@ setApplicationDeadline(data.applicationDeadline ? data.applicationDeadline.split
 - Date Format Conversion: Implemented a method to convert ISO date strings to a format that is compatible with form inputs. The split('T')[0] method was used to extract the date portion of the ISO string.
 - Error Handling: Added a conditional check for applicationDeadline to ensure it only attempts to format the date if a value is present, preventing potential errors when the date is missing.
 
-### 
+##　Example 3: Preventing Unauthorized Access to Edit/Delete Buttons
+
+Initially, our implementation for providing access to the edit and delete buttons looked something like this:
+```jsx
+<div className="align-row">
+  <Link to={`/edit-job/${job.id}`} className={"btn"}>Edit</Link>
+  <Link to='/' className="btn" onClick={() => onDeleteClick(job._id)}>Delete</Link>
+</div>
+```
+This approach did not prevent unauthorized users from accessing the edit and delete buttons. To address this issue, we added an authentication check to ensure that only authorized users can see and interact with these buttons:
+```jsx
+{isAuthenticated &&
+  <div className="align-row">
+    <Link to={`/edit-job/${job._id}`} className={"btn"}>Edit</Link>
+    <Link to='/' className="btn" onClick={() => onDeleteClick(job._id)}>Delete</Link>
+  </div>
+}
+```
+### Key Improvements:
+- Authentication Check: Added a conditional rendering based on the isAuthenticated flag to ensure that only authorized users can access the edit and delete buttons.
+- User Experience: Improved the user interface by showing the edit and delete buttons only to users who have the necessary permissions, reducing confusion for unauthorized users.
+
 
 
 
