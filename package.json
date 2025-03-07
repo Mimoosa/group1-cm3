@@ -1,6 +1,14 @@
 {
+  "name": "job-portal-app",
+  "version": "1.0.0",
+  "description": "Job Portal Application with React frontend and Express backend",
   "scripts": {
-    "dev": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\""
+    "install": "npm run install:backend && npm run install:frontend",
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install",
+    "build": "cd frontend && npm run build",
+    "dev": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
+    "start": "npm run build && cd backend && npm start"
   },
   "dependencies": {
     "concurrently": "^9.1.2"
