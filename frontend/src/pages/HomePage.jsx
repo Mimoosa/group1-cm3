@@ -1,36 +1,36 @@
 import { useEffect, useState } from "react";
-import ProductListings from "../components/ProductListings";
+import JobListings from "../components/JobListings";
 
 const Home = () => {
-  const [products, setProducts] = useState(null);
+  const [jobs, setJobs] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
   
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchJobs = async () => {
       try {
-        const res = await fetch("api/products");
+        const res = await fetch("api/jobs");
         if (!res.ok) {
           throw new Error("could not fetch the data for that resource");
         }
         const data = await res.json();
         setIsPending(false);
-        setProducts(data);
+        setJobs(data);
         setError(null);
       } catch (err) {
         setIsPending(false);
         setError(err.message);
       }
     };
-    // setTimeout(() => {fetchProducts();}, 1000); // Delay of 1 second
-    fetchProducts();
+    // setTimeout(() => {fetchJobs();}, 1000); // Delay of 1 second
+    fetchJobs();
   }, []);
   
   return (
     <div className="home">
       {error && <div>{error}</div>}
       {isPending && <div>Loading...</div>}
-      {products && <ProductListings products={products} />}
+      {jobs && <JobListings jobs={jobs} />}
     </div>
   );
 };
