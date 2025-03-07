@@ -14,7 +14,7 @@ app.use(express.json());
 connectDB();
 
 // Serve the static files from the React app (frontend) in the dist folder
-app.use(express.static('dist'))
+/* app.use(express.static('dist')) */
 
 // Use the jobRouter for all "/jobs" routes
 app.use("/api/jobs", jobRouter);
@@ -22,9 +22,9 @@ app.use("/api/jobs", jobRouter);
 app.use("/api/users", userRouter);
 
 // Path
-app.get('*', (req, res) => {
+/* app.get('*', (req, res) => {
   res.sendFile(__dirname + '/dist/index.html');
-});
+}); */
 
 app.use(unknownEndpoint);
 app.use(errorHandler);

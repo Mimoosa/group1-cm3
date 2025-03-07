@@ -82,7 +82,7 @@ const JobPage = () => {
           <p>Application Deadline: {job.applicationDeadline ? new Date(job.applicationDeadline).toLocaleDateString() : "N/A"}</p>
           <p>Requirements: {job.requirements.join(", ")}</p>
           <div className="align-row">
-            <Link to={`/edit-job/${job.id}`} className={"btn"}>Edit</Link>
+            <Link to={`/edit-job/${job._id}`} className={"btn"}>Edit</Link>
             <Link to='/' className="btn"
                   onClick={() => onDeleteClick(job._id)}>Delete</Link>
           </div>

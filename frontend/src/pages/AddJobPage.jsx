@@ -106,7 +106,7 @@ const AddJobPage = () => {
           type="text"
           required
           value={companyName}
-          onChange={(e) => setSupplierName(e.target.value)}
+          onChange={(e) => setCompanyName(e.target.value)}
         />
         <label>Contact Email:</label>
         <input
@@ -133,7 +133,7 @@ const AddJobPage = () => {
         <input
           type="text"
           required
-          value={website}
+          value={size}
           onChange={(e) => setSize(e.target.value)}
         />
         <label>Location:</label>
