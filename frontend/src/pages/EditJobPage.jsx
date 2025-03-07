@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { jobApi } from "../services/api";
+import Logger from "../utils/logger";
 
 const EditJobPage = () => {
   const [job, setJob] = useState(null); // Initialize job state
@@ -29,20 +31,15 @@ const EditJobPage = () => {
 
   const navigate = useNavigate();
 
-  const updateJob = async (job) => {
+  const updateJob = async (updatedJob) => {
     try {
-      const res = await fetch(`/api/jobs/${job.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(job),
-      });
-      if (!res.ok) throw new Error("Failed to update job");
-      return res.ok;
+      Logger.info("Updating job", { jobId: job.id });
+      await jobApi.updateJob(job.id, updatedJob);
+      Logger.info("Job updated successfully", { jobId: job.id });
+      return true;
     } catch (error) {
-      console.error("Error updating job:", error);
+      Logger.error("Error updating job", { error: error.message });
+      console.error(error);
       return false;
     }
   };
@@ -50,13 +47,10 @@ const EditJobPage = () => {
   // Fetch job data
   useEffect(() => {
     const fetchJob = async () => {
-        try {
-          console.log(id)
-        const res = await fetch(`/api/jobs/${id}`);
-        if (!res.ok) {
-            throw new Error("Network response was not ok");
-        }
-        const data = await res.json();
+      try {
+        Logger.info("Fetching job details", { jobId: id });
+        const data = await jobApi.getJob(id);
+        Logger.info("Job details fetched successfully", { jobId: id });
         setJob(data);
 
         // Initialize form fields with fetched job data
@@ -76,7 +70,7 @@ const EditJobPage = () => {
         setApplicationDeadline(data.applicationDeadline ? data.applicationDeadline.split('T')[0] : "");
         setRequirements(data.requirements);
       } catch (error) {
-        console.error("Failed to fetch job:", error);
+        Logger.error("Failed to fetch job details", { jobId: id, error: error.message });
         setError(error.message);
       } finally {
         setLoading(false); // Stop loading after fetch

@@ -1,29 +1,27 @@
 import { useState } from "react";
+import { api } from "../services/api";
 
-export default function useSignup(url) {
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(null);
+const useSignup = () => {
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(null);
 
-  const signup = async (object) => {
-    setIsLoading(true);
-    setError(null);
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(object),
-    });
-    const user = await response.json();
+    const signup = async (userData) => {
+        setIsLoading(true);
+        setError(null);
 
-    if (!response.ok) {
-      console.log(user.error);
-      setError(user.error);
-      setIsLoading(false);
-      return error;
-    }
-    console.log(user)
-    localStorage.setItem("user", JSON.stringify(user));
-    setIsLoading(false);
-  };
+        try {
+            const json = await api.post('/users/signup', userData);
+            localStorage.setItem('user', JSON.stringify(json));
+            setIsLoading(false);
+            return json;
+        } catch (error) {
+            setIsLoading(false);
+            setError(error.message);
+            return null;
+        }
+    };
 
-  return { signup, isLoading, error };
-}
+    return { signup, isLoading, error };
+};
+
+export default useSignup;

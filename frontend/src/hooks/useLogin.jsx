@@ -1,28 +1,25 @@
 import { useState } from "react";
+import { api } from "../services/api";
 
-export default function useLogin(url) {
+export const useLogin = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
-    const login = async (object) => {
+
+    const login = async ({ username, password }) => {
         setIsLoading(true);
         setError(null);
-        const response = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(object),
-        });
-        const user = await response.json();
-    
-        if (!response.ok) {
-          setError(user.error);
-          setIsLoading(false);
-          return error;
-        }
-    
-        // localStorage.setItem("token", user.token);
-        localStorage.setItem("user", JSON.stringify(user));
-        setIsLoading(false);
-      };
 
-      return { login, isLoading, error };
-}
+        try {
+            const json = await api.post('/users/login', { username, password });
+            localStorage.setItem('user', JSON.stringify(json));
+            setIsLoading(false);
+            return json;
+        } catch (error) {
+            setIsLoading(false);
+            setError(error.message);
+            return null;
+        }
+    };
+
+    return { login, isLoading, error };
+};

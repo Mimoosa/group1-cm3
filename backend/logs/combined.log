@@ -1,0 +1,29 @@
+{"level":"info","message":"Server running on port 4000","timestamp":"2025-03-07T19:51:40.332Z"}
+{"body":{"level":"info","message":"Fetching job details","meta":{"jobId":"67cb4e1140aa170a14c1cd66","timestamp":"2025-03-07T19:51:46.896Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"}},"ip":"::1","level":"info","message":"API Request","method":"POST","path":"/api/logs","query":{},"timestamp":"2025-03-07T19:51:46.925Z","userId":"anonymous"}
+{"jobId":"67cb4e1140aa170a14c1cd66","level":"info","message":"Fetching job details","timestamp":"2025-03-07T19:51:46.896Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"}
+{"level":"info","message":"API Response","method":"POST","path":"/","responseTime":2,"statusCode":200,"timestamp":"2025-03-07T19:51:46.927Z"}
+{"body":{},"ip":"::1","level":"info","message":"API Request","method":"GET","path":"/api/jobs/67cb4e1140aa170a14c1cd66","query":{},"timestamp":"2025-03-07T19:51:46.929Z","userId":"anonymous"}
+{"jobId":"67cb4e1140aa170a14c1cd66","level":"info","message":"Fetching job details","timestamp":"2025-03-07T19:51:46.930Z"}
+{"jobId":"67cb4e1140aa170a14c1cd66","level":"info","message":"Job found successfully","timestamp":"2025-03-07T19:51:46.953Z"}
+{"level":"info","message":"API Response","method":"GET","path":"/67cb4e1140aa170a14c1cd66","responseTime":25,"statusCode":200,"timestamp":"2025-03-07T19:51:46.954Z"}
+{"body":{"level":"info","message":"Job details fetched successfully","meta":{"jobId":"67cb4e1140aa170a14c1cd66","timestamp":"2025-03-07T19:51:46.957Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"}},"ip":"::1","level":"info","message":"API Request","method":"POST","path":"/api/logs","query":{},"timestamp":"2025-03-07T19:51:46.959Z","userId":"anonymous"}
+{"jobId":"67cb4e1140aa170a14c1cd66","level":"info","message":"Job details fetched successfully","timestamp":"2025-03-07T19:51:46.957Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"}
+{"level":"info","message":"API Response","method":"POST","path":"/","responseTime":1,"statusCode":200,"timestamp":"2025-03-07T19:51:46.960Z"}
+{"body":{"level":"info","message":"Fetching job details","meta":{"jobId":"67cb4e1140aa170a14c1cd66","timestamp":"2025-03-07T19:51:48.060Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"}},"ip":"::1","level":"info","message":"API Request","method":"POST","path":"/api/logs","query":{},"timestamp":"2025-03-07T19:51:48.072Z","userId":"anonymous"}
+{"jobId":"67cb4e1140aa170a14c1cd66","level":"info","message":"Fetching job details","timestamp":"2025-03-07T19:51:48.060Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"}
+{"level":"info","message":"API Response","method":"POST","path":"/","responseTime":1,"statusCode":200,"timestamp":"2025-03-07T19:51:48.073Z"}
+{"body":{},"ip":"::1","level":"info","message":"API Request","method":"GET","path":"/api/jobs/67cb4e1140aa170a14c1cd66","query":{},"timestamp":"2025-03-07T19:51:48.074Z","userId":"anonymous"}
+{"jobId":"67cb4e1140aa170a14c1cd66","level":"info","message":"Fetching job details","timestamp":"2025-03-07T19:51:48.075Z"}
+{"jobId":"67cb4e1140aa170a14c1cd66","level":"info","message":"Job found successfully","timestamp":"2025-03-07T19:51:48.089Z"}
+{"level":"info","message":"API Response","method":"GET","path":"/67cb4e1140aa170a14c1cd66","responseTime":15,"statusCode":200,"timestamp":"2025-03-07T19:51:48.089Z"}
+{"body":{"level":"info","message":"Job details fetched successfully","meta":{"jobId":"67cb4e1140aa170a14c1cd66","timestamp":"2025-03-07T19:51:48.092Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"}},"ip":"::1","level":"info","message":"API Request","method":"POST","path":"/api/logs","query":{},"timestamp":"2025-03-07T19:51:48.094Z","userId":"anonymous"}
+{"jobId":"67cb4e1140aa170a14c1cd66","level":"info","message":"Job details fetched successfully","timestamp":"2025-03-07T19:51:48.092Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"}
+{"level":"info","message":"API Response","method":"POST","path":"/","responseTime":1,"statusCode":200,"timestamp":"2025-03-07T19:51:48.095Z"}
+{"body":{},"ip":"::1","level":"info","message":"API Request","method":"GET","path":"/api/jobs","query":{},"timestamp":"2025-03-07T19:52:22.689Z","userId":"anonymous"}
+{"level":"info","message":"Fetching all jobs","timestamp":"2025-03-07T19:52:22.689Z"}
+{"level":"info","message":"Successfully retrieved 1 jobs","timestamp":"2025-03-07T19:52:22.705Z"}
+{"level":"info","message":"API Response","method":"GET","path":"/","responseTime":16,"statusCode":200,"timestamp":"2025-03-07T19:52:22.705Z"}
+{"body":{},"ip":"::1","level":"info","message":"API Request","method":"GET","path":"/api/jobs","query":{},"timestamp":"2025-03-07T19:52:24.556Z","userId":"anonymous"}
+{"level":"info","message":"Fetching all jobs","timestamp":"2025-03-07T19:52:24.556Z"}
+{"level":"info","message":"Successfully retrieved 1 jobs","timestamp":"2025-03-07T19:52:24.570Z"}
+{"level":"info","message":"API Response","method":"GET","path":"/","responseTime":14,"statusCode":200,"timestamp":"2025-03-07T19:52:24.570Z"}

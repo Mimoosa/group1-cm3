@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Logger from "../utils/logger";
+import { jobApi } from "../services/api";
 
 const AddJobPage = () => {
   const [title, setTitle] = useState("");
@@ -34,22 +36,15 @@ const AddJobPage = () => {
  
   const addJob = async (newJob) => {
     try {
-      const res = await fetch("/api/jobs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(newJob),
-      });
-      if (!res.ok) {
-        throw new Error("Failed to add job");
-      }
+      Logger.info("Adding new job", { title: newJob.title, company: newJob.company.name });
+      await jobApi.createJob(newJob);
+      Logger.info("Job added successfully");
+      return true;
     } catch (error) {
+      Logger.error("Error adding job", { error: error.message });
       console.error(error);
       return false;
     }
-    return true;
   };
 
   const submitForm = (e) => {

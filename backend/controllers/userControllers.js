@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const logger = require("../utils/logger");
 
 // Generate JWT
 const generateToken = (_id) => {
@@ -27,6 +28,7 @@ const signupUser = async (req, res) => {
   } = req.body;
 
   try {
+    logger.info('User signup attempt', { username });
     if (
       !name ||
       !username ||
@@ -37,6 +39,7 @@ const signupUser = async (req, res) => {
       !membership_status ||
       !address
     ) {
+      logger.warn('Signup failed - missing required fields', { username });
       res.status(400);
       throw new Error("Please add all required fields");
     }
@@ -45,6 +48,7 @@ const signupUser = async (req, res) => {
     const userExists = await User.findOne({ username });
 
     if (userExists) {
+      logger.warn('Signup failed - username already exists', { username });
       res.status(400);
       throw new Error("User with this username already exists");
     }
@@ -69,12 +73,15 @@ const signupUser = async (req, res) => {
 
     if (user) {
       const token = generateToken(user._id);
+      logger.info('User created successfully', { userId: user._id, username });
       res.status(201).json({ username, token });
     } else {
+      logger.error('Failed to create user', { username });
       res.status(400);
       throw new Error("Invalid user data");
     }
   } catch (error) {
+    logger.error('Signup error', { username, error: error.message });
     res.status(400).json({ error: error.message });
   }
 };
@@ -85,17 +92,21 @@ const signupUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
   try {
+    logger.info('User login attempt', { username });
     // Check for username
     const user = await User.findOne({ username });
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = generateToken(user._id);
+      logger.info('User logged in successfully', { userId: user._id, username });
       res.status(200).json({ username: user.username, token });
     } else {
+      logger.warn('Login failed - invalid credentials', { username });
       res.status(400);
       throw new Error("Invalid credentials");
     }
   } catch (error) {
+    logger.error('Login error', { username, error: error.message });
     res.status(400).json({ error: error.message });
   }
 };
@@ -105,8 +116,10 @@ const loginUser = async (req, res) => {
 // @access  Private
 const getMe = async (req, res) => {
   try {
+    logger.info('Fetching user profile', { userId: req.user._id });
     res.status(200).json(req.user);
   } catch (error) {
+    logger.error('Error fetching user profile', { userId: req.user._id, error: error.message });
     res.status(400).json({ error: error.message });
   }
 };
