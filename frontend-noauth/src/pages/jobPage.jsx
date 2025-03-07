@@ -1,13 +1,32 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 
-const JobPage = () => {
+const JobPage = ({isAuthenticated}) => {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const {id} = useParams();
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user ? user.token : null;
+  
+  const deleteJob = async (id) => {
+    try {
+      const res = await fetch(`/api/jobs/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!res.ok) {
+        throw new Error('Failed to delete job');
+      }
+    } catch (error) {
+      console.error('Error deleting job:', error);
+    }
+  };
   
   useEffect(() => {
     const fetchJob = async () => {
@@ -28,19 +47,6 @@ const JobPage = () => {
     
     fetchJob();
   }, [id]);
-  
-  const deleteJob = async (id) => {
-    try {
-      const res = await fetch(`/api/jobs/${id}`, {
-        method: 'DELETE',
-      });
-      if (!res.ok) {
-        throw new Error('Failed to delete job');
-      }
-    } catch (error) {
-      console.error('Error deleting job:', error);
-    }
-  };
   
   const onDeleteClick = (jobId) => {
     const confirm = window.confirm(
@@ -76,10 +82,13 @@ const JobPage = () => {
           <p>Application Deadline: {job.applicationDeadline ? new Date(job.applicationDeadline).toLocaleDateString() : "N/A"}</p>
           <p>Requirements: {job.requirements.join(", ")}</p>
           
+          {isAuthenticated&&
           <div className="align-row">
             <Link to={`/edit-job/${job._id}`} className={"btn"}>Edit</Link>
-            <Link to='/' className="btn" onClick={() => onDeleteClick(job._id)}>Delete</Link>
+            <Link to='/' className="btn"
+                  onClick={() => onDeleteClick(job._id)}>Delete</Link>
           </div>
+          }
         </>
       )}
     </div>
