@@ -75,6 +75,53 @@ This approach did not prevent unauthorized users from accessing the edit and del
 - Authentication Check: Added a conditional rendering based on the isAuthenticated flag to ensure that only authorized users can access the edit and delete buttons.
 - User Experience: Improved the user interface by showing the edit and delete buttons only to users who have the necessary permissions, reducing confusion for unauthorized users.
 
+## Example 4: Ensuring Proper Navigation After Logout in React
+Initially, our implementation for handling the logout process in the Navbar component did not include navigation after the logout action.
+
+The initial approach led to an issue where, if an authorized user logged out while on a page that only authorized users can access, they would remain on that page even after logging out. To address this, we added navigation to redirect users to the login page after logging out:
+
+```jsx
+const Navbar = ({isAuthenticated, setIsAuthenticated}) => {
+  const navigate = useNavigate();
+  const handleClick = (e) => {
+    e.preventDefault();
+    
+    setIsAuthenticated(false);
+    localStorage.removeItem('user');
+    navigate(`/login`);
+  };
+
+  return (
+    <nav className="navbar">
+      <Link to="/">
+        <h1>React Jobs</h1>
+      </Link>
+      <div className="links">
+        {isAuthenticated && (
+          <div>
+            <Link to="/jobs/add-job">Add Job</Link>
+            <Link to="/" onClick={handleClick} className={"btn"}>Log out</Link>
+          </div>
+        )}
+        {!isAuthenticated && (
+          <div>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Signup</Link>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+};
+
+```
+
+### Key Improvements:
+- Proper Navigation After Logout: Added the navigate function to redirect users to the login page after logging out, ensuring they do not remain on restricted pages.
+- User Experience: Improved the overall user experience by ensuring a smooth transition to the login page after logging out.
+- Security Enhancement: Prevented unauthorized access to restricted pages after logout, enhancing the security of the application.
+
+
 
 
 
