@@ -146,6 +146,176 @@ const Navbar = ({isAuthenticated, setIsAuthenticated}) => {
 - Security: 10/10 - The navigation enhances security by ensuring users are redirected to the login page after logging out.
 - User Experience: 10/10 - The interface is more intuitive, providing a smooth transition after logging out.
 
+## Example5: Refactoring Authentication Handling with Context API
 
+### Before Improvement:
+The initial implementation used props to pass the isAuthenticated and setIsAuthenticated state down to child components:
+```jsx
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useState } from "react";
+
+// pages & components
+import Navbar from "./components/Navbar";
+import Home from "./pages/HomePage";
+import AddJobPage from "./pages/AddJobPage";
+import JobPage from "./pages/JobPage";
+import EditJobPage from "./pages/EditJobPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import Login from "./pages/LoginPage";
+import Signup from "./pages/SignupPage";
+
+const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user && user.token ? true : false;
+  });
+  
+  
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/jobs/:id" element={<JobPage isAuthenticated={isAuthenticated} />} />
+            <Route
+              path="/jobs/add-job"
+              element={isAuthenticated ? <AddJobPage /> : <Navigate to="/signup" />}
+            />
+            <Route
+              path="/edit-job/:id"
+              element={isAuthenticated ? <EditJobPage /> : <Navigate to="/signup" />}
+            />
+            <Route
+              path="/signup"
+              element={
+                isAuthenticated ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Signup setIsAuthenticated={setIsAuthenticated} />
+                )
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                isAuthenticated ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Login setIsAuthenticated={setIsAuthenticated} />
+                )
+              }
+            />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </div>
+  );
+};
+
+export default App;
+```
+
+### After improvement:
+The code was refactored to use the Context API, providing a more efficient way to manage and share authentication state across the application:
+```jsx
+// src/contexts/AuthContext.js
+import React, { createContext, useContext } from 'react';
+
+const AuthContext = createContext();
+
+export const useAuthContext = () => useContext(AuthContext);
+
+export default AuthContext;
+```
+
+```jsx
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useState } from "react";
+
+// pages & components
+import Navbar from "./components/Navbar";
+import Home from "./pages/HomePage";
+import AddJobPage from "./pages/AddJobPage";
+import JobPage from "./pages/JobPage";
+import EditJobPage from "./pages/EditJobPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import Login from "./pages/LoginPage";
+import Signup from "./pages/SignupPage";
+import AuthContext from './contexts/AuthContext' 
+import { useAuthContext } from './contexts/AuthContext'; 
+
+const AppContent = () => {
+  const { isAuthenticated } = useAuthContext();
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Navbar />
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/jobs/:id" element={<JobPage />} />
+            <Route
+              path="/jobs/add-job"
+              element={isAuthenticated ? <AddJobPage /> : <Navigate to="/signup" />}
+            />
+            <Route
+              path="/edit-job/:id"
+              element={isAuthenticated ? <EditJobPage /> : <Navigate to="/signup" />}
+            />
+            <Route
+              path="/signup"
+              element={
+                isAuthenticated ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Signup />
+                )
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                isAuthenticated ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Login />
+                )
+              }
+            />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </div>
+  );
+};
+
+const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user && user.token ? true : false;
+  });
+  return (
+    <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated}}>
+        <AppContent />
+    </AuthContext.Provider>
+  );
+};
+
+export default App;
+```
+### Key Improvements:
+- State Management: Moved the isAuthenticated state management to a context provider, making it accessible to all components in the app without passing props through multiple levels.
+- Code Readability: Improved the readability and maintainability of the code by centralizing authentication logic in a context.
+- Reusability: Enhanced the reusability of components by removing the need to pass authentication-related props through multiple components.
+- Scalability: Made the application more scalable by providing a flexible and efficient way to manage and share global state.
+
+### Self-Grading:
+- Functionality: 10/10 - The context implementation works as intended, providing global authentication state management.
+- Code Quality: 9/10 - The code is clean and readable, with clear logic and meaningful variable names.
+- Performance: 9/10 - The code performs well with the current requirements, with minimal impact on performance.
 
 
