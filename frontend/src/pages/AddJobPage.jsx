@@ -131,7 +131,7 @@ const AddJobPage = () => {
         />
          <label>Company Size:</label>
         <input
-          type="text"
+          type="number"
           required
           value={size}
           onChange={(e) => setSize(e.target.value)}
