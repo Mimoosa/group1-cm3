@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require("express");
 const app = express();
 const jobRouter = require("./routes/jobRouter");
+const jobRouter = require("./routes/jobRouter");
 const userRouter = require("./routes/userRouter");
 const { unknownEndpoint,errorHandler } = require("./middleware/customMiddleware");
 const connectDB = require("./config/db");
